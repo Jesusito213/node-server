@@ -3,8 +3,13 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
+const listViewRouter = require('./list-view-router');
+
+const listEditRouter = require('./list-edit-router');
+
 
 const app = express();
+
 
 app.use(bodyParser.json());
 
@@ -17,22 +22,12 @@ const tasks = [
 ];
 
 
-app.get('/tasks', (req, res) => {
-  res.json(tasks);
+app.use('/list-view', listViewRouter);
 
-});
+app.use('/list-edit', listEditRouter);
 
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
-
-});
-
-javascript
-
-app.post('/tasks', (req, res) => {
-  const newTask = req.body;
-  tasks.push(newTask);
-  res.json(tasks);
 
 });
